@@ -24,7 +24,8 @@ var html_end string = `' />
 type Handler struct{}
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	reqUrl := req.RequestURI
+	// TODO: proto
+	reqUrl := "https://" + req.Host + req.RequestURI
 	png, _ := qrcode.Encode(reqUrl, qrcode.Medium, 512)
 	dst := make([]byte, base64.StdEncoding.EncodedLen(len(png)))
 	base64.StdEncoding.Encode(dst, png)
@@ -36,5 +37,5 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	log.Println(http.ListenAndServe(":8080", &Handler{}))
+	log.Println(http.ListenAndServe("127.0.0.1:8080", &Handler{}))
 }
