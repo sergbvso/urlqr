@@ -34,6 +34,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
+	log.Println(reqUrl)
 }
 
 func main() {
